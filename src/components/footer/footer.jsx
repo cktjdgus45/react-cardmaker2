@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './footer.module.css';
 
 const Footer = (props) => {
     return (
-        <footer>
-            <h3>Code your Dream</h3>
+        <footer className={styles.footer}>
+            <p className={styles.title}>Code your Dream</p>
         </footer>
     )
 }
