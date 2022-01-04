@@ -1,0 +1,13 @@
+@value makerLightPink,makerGreen from '../../common/colors.css';
+
+.editor{
+    flex-basis: 50%;
+    background-color: makerLightPink;
+}
+
+.title{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
+    color: makerGreen;
+}
