@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './header.module.css';
 
 const Header = ({ onLogout }) => {
-    const onLogOut = (event) => {
-        console.log(event.target);
+    const onLogOut = () => {
+        onLogout && onLogout();
     }
     return (
         <header className={styles.header}>
