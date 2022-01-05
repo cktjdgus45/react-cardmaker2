@@ -12,12 +12,12 @@ const Maker = ({ authService }) => {
             id: '1',
             name: 'cha',
             company: 'Kakao',
-            theme: 'light',
+            theme: 'dark',
             title: 'Software Engineer',
             email: 'cktjdgus45@naver.com',
             message: '꾸준히',
             fileName: 'cha.txt',
-            fileURL: 'cha.png'
+            fileURL: null
         },
         {
             id: '2',
@@ -28,18 +28,18 @@ const Maker = ({ authService }) => {
             email: 'cktjdgus452@naver.com',
             message: '꾸준히2',
             fileName: 'cha2.txt',
-            fileURL: 'cha2.png'
+            fileURL: null
         },
         {
             id: '3',
             name: 'cha3',
             company: 'Kakao3',
-            theme: 'light',
+            theme: 'colorful',
             title: 'Software Engineer3',
             email: 'cktjdgus453@naver.com',
             message: '꾸준히3',
             fileName: 'cha3.txt',
-            fileURL: 'cha3.png'
+            fileURL: null
         },
     ])
     let navigate = useNavigate();
