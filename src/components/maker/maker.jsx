@@ -42,6 +42,12 @@ const Maker = ({ authService }) => {
             fileURL: null
         },
     ])
+    const onAdd = (card) => {
+        const cardInfo = [...cards, card];
+        console.log(card)
+        console.log(cardInfo)
+        setCards(cardInfo);
+    }
     let navigate = useNavigate();
     const onLogout = () => {
         authService.logout();
@@ -60,7 +66,7 @@ const Maker = ({ authService }) => {
         <section className={styles.maker}>
             <Header onLogout={onLogout} />
             <div className={styles.container}>
-                <Editor cards={cards} />
+                <Editor cards={cards} onAdd={onAdd} />
                 <Preview cards={cards} />
             </div>
             <Footer />
