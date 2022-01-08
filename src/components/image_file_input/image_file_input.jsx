@@ -7,9 +7,16 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }) => {
         event.preventDefault();
         inputRef.current.click();
     }
+    const onFileInputChange = async event => {
+        const uploaded = await imageUploader.upload(event.target.files[0]);
+        onFileChange({
+            name: uploaded.original_filename,
+            url: uploaded.url
+        })
+    }
     return (
         <div className={styles.container}>
-            <input ref={inputRef} className={styles.input} type="file" accept="image/*" name="file" />
+            <input onChange={onFileInputChange} ref={inputRef} className={styles.input} type="file" accept="image/*" name="file" />
             <button className={styles.button} onClick={onButtonClick}>{name || 'No file'}</button>
         </div>
     )

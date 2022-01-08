@@ -12,6 +12,15 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
     const emailRef = useRef();
     const messageRef = useRef();
 
+    const onFileChange = file => {
+        updateCard({
+            ...card,
+            fileName: file.name,
+            fileURL: file.url
+        })
+    }
+
+
     const onSubmit = () => {
         deleteCard(card)
     };
@@ -40,7 +49,7 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
             <input onChange={onChange} ref={emailRef} className={styles.input} type="text" name="email" value={email} />
             <textarea onChange={onChange} ref={messageRef} className={styles.textarea} name="message" value={message}></textarea>
             <div className={styles.fileInput}>
-                <FileInput />
+                <FileInput name={fileName} onFileChange={onFileChange} />
                 <Button name='Delete' onClick={onSubmit} />
             </div>
         </form>
