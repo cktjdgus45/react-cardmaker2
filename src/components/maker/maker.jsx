@@ -31,9 +31,7 @@ const Maker = ({ authService, FileInput, cardRepository }) => {
     const onLogout = () => {
         authService.logout();
     };
-    const goToLogin = () => {
-        navigate('/');
-    }
+
     useEffect(() => {
         if (!userId) {
             return;
@@ -42,18 +40,16 @@ const Maker = ({ authService, FileInput, cardRepository }) => {
             setCards(cards);
         })
         return () => stopSync();
-    }, [userId]);
-    console.log(cards)
+    }, [userId, cardRepository]);
     useEffect(() => {
         authService.onAuthStateChange(user => {
             if (user) {
                 setUserId(user.uid);
-                console.log(userId);
             } else {
-                goToLogin();
+                navigate('/');
             }
         })
-    })
+    }, [authService, navigate])
     return (
         <section className={styles.maker}>
             <Header onLogout={onLogout} />
