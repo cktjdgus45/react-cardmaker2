@@ -9,41 +9,7 @@ import Preview from '../preview/preview';
 const Maker = ({ authService, FileInput, cardRepository }) => {
     const locationState = useLocation().state;
     const [userId, setUserId] = useState(locationState && locationState.id);
-    const [cards, setCards] = useState({
-        '1': {
-            id: '1',
-            name: 'cha',
-            company: 'Kakao',
-            theme: 'dark',
-            title: 'Software Engineer',
-            email: 'cktjdgus45@naver.com',
-            message: '꾸준히',
-            fileName: 'cha.txt',
-            fileURL: null
-        },
-        '2': {
-            id: '2',
-            name: 'cha2',
-            company: 'Kakao2',
-            theme: 'light',
-            title: 'Software Engineer2',
-            email: 'cktjdgus452@naver.com',
-            message: '꾸준히2',
-            fileName: 'cha2.txt',
-            fileURL: null
-        },
-        '3': {
-            id: '3',
-            name: 'cha3',
-            company: 'Kakao3',
-            theme: 'colorful',
-            title: 'Software Engineer3',
-            email: 'cktjdgus453@naver.com',
-            message: '꾸준히3',
-            fileName: 'cha3.txt',
-            fileURL: null
-        },
-    })
+    const [cards, setCards] = useState({});
 
     const createOrUpdateCard = (card) => {
         setCards(cards => {
@@ -68,6 +34,16 @@ const Maker = ({ authService, FileInput, cardRepository }) => {
     const goToLogin = () => {
         navigate('/');
     }
+    useEffect(() => {
+        if (!userId) {
+            return;
+        }
+        const stopSync = cardRepository.readCard(userId, cards => {
+            setCards(cards);
+        })
+        return () => stopSync();
+    }, [userId]);
+    console.log(cards)
     useEffect(() => {
         authService.onAuthStateChange(user => {
             if (user) {

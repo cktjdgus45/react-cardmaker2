@@ -7,6 +7,14 @@ class CardRepository {
     removeCard(userId, card) {
         firebaseApp.database().ref(`${userId}/cards/${card.id}`).remove();
     }
+    readCard(userId, onUpdate) {
+        const ref = firebaseApp.database().ref(`${userId}/cards`);
+        ref.on('value', (snapshot) => {
+            const data = snapshot.val();
+            data && onUpdate(data);
+        });
+        return () => ref.off();
+    }
 }
 
 export default CardRepository;
