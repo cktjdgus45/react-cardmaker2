@@ -2,11 +2,13 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './maker.module.css';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Editor from '../editor/editor';
 import Preview from '../preview/preview';
 
-const Maker = ({ authService, FileInput }) => {
+const Maker = ({ authService, FileInput, cardRepository }) => {
+    const locationState = useLocation().state;
+    const [userId, setUserId] = useState(locationState && locationState.id);
     const [cards, setCards] = useState({
         '1': {
             id: '1',
@@ -49,6 +51,7 @@ const Maker = ({ authService, FileInput }) => {
             updated[card.id] = card;
             return updated;
         });
+        cardRepository.saveCard(userId, card);
     }
     const deleteCard = (card) => {
         setCards(cards => {
@@ -56,6 +59,7 @@ const Maker = ({ authService, FileInput }) => {
             delete updated[card.id];
             return updated;
         });
+        cardRepository.removeCard(userId, card);
     }
     let navigate = useNavigate();
     const onLogout = () => {
@@ -66,7 +70,10 @@ const Maker = ({ authService, FileInput }) => {
     }
     useEffect(() => {
         authService.onAuthStateChange(user => {
-            if (!user) {
+            if (user) {
+                setUserId(user.uid);
+                console.log(userId);
+            } else {
                 goToLogin();
             }
         })
