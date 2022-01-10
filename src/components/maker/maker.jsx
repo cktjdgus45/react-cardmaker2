@@ -1,7 +1,7 @@
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './maker.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import Editor from '../editor/editor';
 import Preview from '../preview/preview';
@@ -28,9 +28,9 @@ const Maker = ({ authService, FileInput, cardRepository }) => {
         cardRepository.removeCard(userId, card);
     }
     let navigate = useNavigate();
-    const onLogout = () => {
+    const onLogout = useCallback(() => {
         authService.logout();
-    };
+    }, [authService]);
 
     useEffect(() => {
         if (!userId) {
